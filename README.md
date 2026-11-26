@@ -8,15 +8,23 @@ Tracking how much time I spent practicing, what pieces I played, and how often I
 
 ## How It Works
 
-The Music Practice Tracker is a terminal-based Java application. When started, it loads the past practice records from the session.csv file using BufferedReader. Next, it prints a display menu with 3 choices . . . the user can either log a practice session, view the summary, or exit the program. Using java.util.Scanner, it grabs the user's choice. When users log a practice session they specify their instrument and practice time in minutes (this input is again saved into a variable using the java.util.Scanner). New practice entries are saved back to the csv file using PrintWriter. 
+The Music Practice Tracker is a terminal-based Java application. When started, it loads the past practice records from the sessions.csv file (located in the root project folder)using BufferedReader and stores them in an ArrayList in memory for active use during runtime. Next, it prints a display menu with 3 choices . . . the user can either log a practice session, view the summary, or exit the program. Using java.util.Scanner, it grabs the user's choice. When users log a practice session they specify their instrument and practice time in minutes (this input is again saved into a variable using the java.util.Scanner, added to the ArrayList, and used to calculate summary statistics). Finally, new practice entries are saved back to the sessions.csv file in the root folder using PrintWriter. 
 
 ![System diagram](./System%20Diagram.png)
 
 ## Tech Stack
 
 - **Language:** Java
-- **Packages & Classes:** java.io, java.util.ArrayList, java.util.Scanner
+- **Packages & Classes:** java.io (BufferedReader, PrintWriter), java.util.ArrayList, java.util.Scanner
 - **External tools:** None
+
+## MVP Scope
+The Minimum Viable Product (MVP) for this version includes:
+- Interactive command-line menu loop using 'java.util.Scanner'.
+- Practice session logging (capturing instrument and practice time in minutes).
+- In-memory data management using 'java.util.ArrayList'.
+- Summary statistic calculations displaying total practice time and session counts.
+- File I/O persistence reading from and writing to 'sessions.csv' in the root folder. 
 
 ## Setup
 

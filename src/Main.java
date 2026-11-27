@@ -1,3 +1,6 @@
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Main {
@@ -32,12 +35,12 @@ public class Main {
             }   
 
             if (choice == 1) {
-                System.out.println("Enter instrument: ");
+                System.out.print("Enter instrument: ");
                 String instrument = scanner.nextLine();
 
                 int minutes = -1;
                 while (minutes < 0) {
-                    System.out.println("Enter practice time (minutes): ");
+                    System.out.print("Enter practice time (minutes): ");
                     // Read minutes as a string in case the user gives letters or just hits enter as input
                     String minutesInput = scanner.nextLine();
 
@@ -60,7 +63,16 @@ public class Main {
                 String sessionEntry = instrument + "," + minutes;
                 sessions.add(sessionEntry);
 
-                System.out.println("Session saved successfully!");
+                // Use PrintWriter and FileWriter to save the session entry to sessions.csv
+                // Passing 'true' to FileWriter ensures new entries append instead of overwriting
+                // what's already on sessions.csv
+                try (PrintWriter pw = new PrintWriter(new FileWriter("sessions.csv", true))) {
+                    pw.println(sessionEntry);
+                    System.out.println("Session saved successfully to the file!");
+                } catch (IOException e) {
+                    System.out.println("An error occured while saving the session to the file.");
+                }
+
             } else if (choice == 2) {
                 System.out.println("This feature will be coming soon!");
             } else if (choice == 3) {

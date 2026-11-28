@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.PrintWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -59,7 +61,7 @@ public class Main {
 
                 // Format it this way so that we can use split(",")
                 // to break the instrument and practice (in minutes) 
-                // data to caculate the summary statistics
+                // data to calculate the summary statistics
                 String sessionEntry = instrument + "," + minutes;
                 sessions.add(sessionEntry);
 
@@ -70,11 +72,31 @@ public class Main {
                     pw.println(sessionEntry);
                     System.out.println("Session saved successfully to the file!");
                 } catch (IOException e) {
-                    System.out.println("An error occured while saving the session to the file.");
+                    System.out.println("An error occurred while saving the session to the file.");
                 }
 
             } else if (choice == 2) {
-                System.out.println("This feature will be coming soon!");
+                int totalSessions = 0;
+                ArrayList<Integer> minutes = new ArrayList<>();
+
+                // Read previous practice sessions from sessions.csv using BufferedReader
+                try (BufferedReader br = new BufferedReader(new FileReader("sessions.csv"))) {
+                    String line = "";
+
+                    // Loop through each line in the file until there are no more lines (null indicates no more lines)
+                    while  ((line = br.readLine()) != null) {
+                        // Split the entry into an array (arr[0] is the instrument and arr[1] is the time spent practicing)
+                        String[] arr = line.split(",");
+
+                        // Convert the time spent practicing (in minutes) from a string to an integer and add it to the list
+                        minutes.add(Integer.parseInt(arr[1]));
+                        totalSessions++;
+                    }
+                } catch (IOException e) {
+                    // In case if sessions.csv hasn't been created yet . . . it handles that case!
+                    System.out.println("Whoops! The file sessions.csv does not exist yet! First add some practice sessions so that we can calculate the statistics for you :)");
+                }
+                System.out.println("The rest of this feature will be coming soon!");
             } else if (choice == 3) {
                 System.out.println("Thank you for choosing the Music Practice Tracker!");
             } else {
